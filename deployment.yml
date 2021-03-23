@@ -20,3 +20,12 @@ spec:
             cpu: 100m
         ports:
           - containerPort: 80
+        env:
+          - name: "HOST_DB"
+            value: "barbearia-service:3306"
+          - name: "USER_DB"
+            value: "root"
+          - name: "PASS_DB"
+            value: "q1w2e3r4"
+          - name: "DATABASE_DB"
+            value: "empresa"
