@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: barbearia-app-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    name: barbearia-pod
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: barbearia-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: barbearia-pod
+  template:
+    metadata: 
+      labels:
+        name: barbearia-pod
+    spec:
+      containers:
+      - name: barbearia-pod
+        image: thileal/barbearia:latest
+#        resources:
+#          requests:
+#            cpu: 100m
+        ports:
+          - containerPort: 3000
+#        env:
+#          - name: "HOST_DB"
+#            value: "barbearia-service:3306"
+#          - name: "USER_DB"
+#            value: "root"
+#          - name: "PASS_DB"
+#            value: "q1w2e3r4"
+#          - name: "DATABASE_DB"
+#            value: "empresa"
